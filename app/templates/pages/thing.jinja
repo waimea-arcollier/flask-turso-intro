@@ -2,20 +2,22 @@
 
 {% block title %}
 
-    Flask and Turso DB Demo - Single Thing
+    Drink Info
 
 {% endblock %}
 
 
 {% block content %}
 
-    <h1>Thing Details</h1>
+    <h1>Drink Info</h1>
 
     <article>
 
         <h3>{{ thing.flavour }}</h3>
 
         <p>Rating: {{thing.rating}}/10</p>
+
+        <a href="/delete/{{thing.id}}">Delete This Drink</a>
 
     </article>
 

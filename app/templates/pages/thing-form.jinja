@@ -2,18 +2,31 @@
 
 {% block title %}
 
-    Flask and Turso DB Demo - New Thing
+    Add a Drink
 
 {% endblock %}
 
 
 {% block content %}
 
-    <h1>New Thing</h1>
+    <h1>Add a Drink</h1>
 
     <article>
 
-        <P>THING FORM HERE!!!</P>
+        <form action="/add-thing" method="POST">
+            
+            <label>
+                Drink Flavour
+                <input name="flavour" type="text" required>
+            </label>
+
+            <label>
+                Rating (/10)
+                <input name="rating" type="text" min="0" value="0" required>
+            </label>
+
+            <button>Add Your Drink</button>
+        </form>
 
     </article>
 

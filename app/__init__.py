@@ -1,4 +1,5 @@
 from flask          import Flask
+from flask          import request
 from flask          import render_template
 from flask          import redirect
 from libsql_client  import create_client_sync
@@ -65,12 +66,40 @@ def show_thing(id):
 def new_thing():
     return render_template("pages/thing-form.jinja")
 
+#-----------------------------------------------------------
+# Process New Thing
+#-----------------------------------------------------------
+@app.post("/add-thing")
+def add_thing():
+    #get form data
+    flavour = request.form.get("flavour")
+    rating = request.form.get("rating")
+    
+    print(flavour)
+    print(rating)
+    
+    #connect to database
+    client = connect_db()
+    #add drink to db
+    sql = "INSERT INTO things (flavour, rating) VALUES (?, ?)"
+    values= [flavour, rating]
+    client.execute(sql, values)
+    
+    #redirect to home
+    return redirect("/")
 
+    
 #-----------------------------------------------------------
 # Thing deletion
 #-----------------------------------------------------------
 @app.get("/delete/<int:id>")
 def delete_thing(id):
+    
+    client = connect_db()
+    sql = "DELETE FROM things WHERE id=?"
+    values= [id]
+    client.execute(sql, values)
+    
     return redirect("/")
 
 
